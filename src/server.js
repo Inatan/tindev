@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('cors');
+const cors = require('cors');
 const routes = require('./routes');
 
 
 // criar depois conta no mongo dp
+mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-gw2tc.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true
+});
 
 const server = express();
 
