@@ -57,7 +57,7 @@ export default function Main({ match }){
                             <button type="button" onClick={() => handleDislike(user._id)}>
                                 <img src={like} alt="Like"/>
                             </button>
-                            <button type="button"  onClick={() =>  handleLike(user._id)}>
+                            <button type="button"  onClick={() =>  handleLike(user.y_id)}>
                                 <img src={dislike} alt="Dislike"/>
                             </button>
                         </div>
