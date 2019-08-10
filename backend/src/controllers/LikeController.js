@@ -2,8 +2,8 @@ const Dev =  require('../models/Dev');
 
 module.exports = {
     async store(req, res){
-        console.log(req.params.devId);
-        console.log(req.headers.user);
+        console.log("like" + req.params.devId);
+        console.log("like" + req.headers.user);
 
         const {user } = req.headers;
         const {devId } = req.params;
@@ -15,11 +15,23 @@ module.exports = {
             return res.status(400).json({error: 'Dev not exists'});
         }
 
+        loggedDev.likes.push(targetDev._id);
+        
         if(targetDev.likes.includes(loggedDev._id)){
+            const loggedSocket = req.connectedUsers[user];
+            const targedSocket = req.connectedUsers[devId];
+            
+            if(loggedSocket){
+                req.io.to(loggedSocket).emit('match',targetDev);
+            }
+
+            if(targedSocket){
+                req.io.to(targedSocket).emit('match',loggedDev);
+            }
+
             console.log( 'Deu match');
         }
 
-        loggedDev.likes.push(targetDev._id);
 
         await loggedDev.save();
 
